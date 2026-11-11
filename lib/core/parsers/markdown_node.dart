@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-sealed class MarkdownNode {
+sealed class MarkdownNode extends Equatable {
   const MarkdownNode();
 }
 
@@ -11,6 +12,9 @@ final class MarkdownDocumentNode extends MarkdownNode {
   ) : children = List.unmodifiable(children);
 
   final List<MarkdownBlockNode> children;
+
+  @override
+  List<Object?> get props => [children];
 }
 
 @immutable
