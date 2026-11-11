@@ -56,4 +56,7 @@ sealed class MarkdownInlineParentNode extends MarkdownInlineNode {
   ) : children = List.unmodifiable(children);
 
   final List<MarkdownInlineNode> children;
+
+  @override
+  List<Object?> get props => [children];
 }
