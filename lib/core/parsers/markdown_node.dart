@@ -4,11 +4,42 @@ import 'package:flutter/foundation.dart';
 @immutable
 sealed class MarkdownNode extends Equatable {
   const MarkdownNode();
+
+  @override
+  List<Object?> get props => [];
 }
 
 @immutable
 sealed class MarkdownBlockNode extends MarkdownNode {
   const MarkdownBlockNode();
+}
+
+final class MarkdownCodeBlockNode extends MarkdownBlockNode {
+  const MarkdownCodeBlockNode(
+    this.text, {
+    this.language,
+  });
+
+  final String text;
+  final String? language;
+
+  @override
+  List<Object?> get props => [...super.props, text, language];
+}
+
+final class MarkdownThematicBreakNode extends MarkdownBlockNode {
+  const MarkdownThematicBreakNode();
+}
+
+final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
+  const MarkdownHtmlBlockNode(
+    this.text,
+  );
+
+  final String text;
+
+  @override
+  List<Object?> get props => [...super.props, text];
 }
 
 @immutable
@@ -20,7 +51,7 @@ sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlo
   final List<T> children;
 
   @override
-  List<Object?> get props => [children];
+  List<Object?> get props => [...super.props, children];
 }
 
 final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
@@ -81,5 +112,5 @@ sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends Mark
   final List<T> children;
 
   @override
-  List<Object?> get props => [children];
+  List<Object?> get props => [...super.props, children];
 }
