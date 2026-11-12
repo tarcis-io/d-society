@@ -15,20 +15,13 @@ sealed class MarkdownBlockNode extends MarkdownNode {
 }
 
 final class MarkdownCodeBlockNode extends MarkdownBlockNode {
-  const MarkdownCodeBlockNode(
-    this.text, {
-    this.language,
-  });
+  const MarkdownCodeBlockNode(this.text, {this.language});
 
   final String text;
   final String? language;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    text,
-    language,
-  ];
+  List<Object?> get props => [...super.props, text, language];
 }
 
 final class MarkdownThematicBreakNode extends MarkdownBlockNode {
@@ -36,98 +29,62 @@ final class MarkdownThematicBreakNode extends MarkdownBlockNode {
 }
 
 final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
-  const MarkdownHtmlBlockNode(
-    this.text,
-  );
+  const MarkdownHtmlBlockNode(this.text);
 
   final String text;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    text,
-  ];
+  List<Object?> get props => [...super.props, text];
 }
 
 @immutable
 sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlockNode {
-  MarkdownBlockParentNode(
-    Iterable<T> children,
-  ) : children = List.unmodifiable(children);
+  MarkdownBlockParentNode(Iterable<T> children) : children = List.unmodifiable(children);
 
   final List<T> children;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    children,
-  ];
+  List<Object?> get props => [...super.props, children];
 }
 
 final class MarkdownDocumentNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownDocumentNode(
-    super.children,
-  );
+  MarkdownDocumentNode(super.children);
 }
 
 final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownParagraphNode(
-    super.children,
-  );
+  MarkdownParagraphNode(super.children);
 }
 
 final class MarkdownHeadingNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownHeadingNode(
-    super.children, {
-    required this.level,
-  }) : assert(level >= 1 && level <= 6, 'level must be between 1 and 6');
+  MarkdownHeadingNode(super.children, {required this.level});
 
   final int level;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    level,
-  ];
+  List<Object?> get props => [...super.props, level];
 }
 
 final class MarkdownBlockQuoteNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownBlockQuoteNode(
-    super.children,
-  );
+  MarkdownBlockQuoteNode(super.children);
 }
 
 final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownListItemNode(
-    super.children, {
-    this.isChecked,
-  });
+  MarkdownListItemNode(super.children, {this.isChecked});
 
   final bool? isChecked;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    isChecked,
-  ];
+  List<Object?> get props => [...super.props, isChecked];
 }
 
 final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNode> {
-  MarkdownListNode(
-    super.children, {
-    required this.isOrdered,
-    this.startNumber,
-  });
+  MarkdownListNode(super.children, {required this.isOrdered, this.startNumber});
 
   final bool isOrdered;
   final int? startNumber;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    isOrdered,
-    startNumber,
-  ];
+  List<Object?> get props => [...super.props, isOrdered, startNumber];
 }
 
 @immutable
@@ -136,45 +93,30 @@ sealed class MarkdownInlineNode extends MarkdownNode {
 }
 
 final class MarkdownTextNode extends MarkdownInlineNode {
-  const MarkdownTextNode(
-    this.text,
-  );
+  const MarkdownTextNode(this.text);
 
   final String text;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    text,
-  ];
+  List<Object?> get props => [...super.props, text];
 }
 
 final class MarkdownCodeSpanNode extends MarkdownInlineNode {
-  const MarkdownCodeSpanNode(
-    this.text,
-  );
+  const MarkdownCodeSpanNode(this.text);
 
   final String text;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    text,
-  ];
+  List<Object?> get props => [...super.props, text];
 }
 
 final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
-  const MarkdownHtmlInlineNode(
-    this.text,
-  );
+  const MarkdownHtmlInlineNode(this.text);
 
   final String text;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    text,
-  ];
+  List<Object?> get props => [...super.props, text];
 }
 
 final class MarkdownSoftLineBreakNode extends MarkdownInlineNode {
@@ -187,69 +129,42 @@ final class MarkdownHardLineBreakNode extends MarkdownInlineNode {
 
 @immutable
 sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends MarkdownInlineNode {
-  MarkdownInlineParentNode(
-    Iterable<T> children,
-  ) : children = List.unmodifiable(children);
+  MarkdownInlineParentNode(Iterable<T> children) : children = List.unmodifiable(children);
 
   final List<T> children;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    children,
-  ];
+  List<Object?> get props => [...super.props, children];
 }
 
 final class MarkdownEmphasisNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownEmphasisNode(
-    super.children,
-  );
+  MarkdownEmphasisNode(super.children);
 }
 
 final class MarkdownStrongNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownStrongNode(
-    super.children,
-  );
+  MarkdownStrongNode(super.children);
 }
 
 final class MarkdownLinkNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownLinkNode(
-    super.children, {
-    required this.destination,
-    this.title,
-  });
+  MarkdownLinkNode(super.children, {required this.destination, this.title});
 
   final String destination;
   final String? title;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    destination,
-    title,
-  ];
+  List<Object?> get props => [...super.props, destination, title];
 }
 
 final class MarkdownImageNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownImageNode(
-    super.children, {
-    required this.destination,
-    this.title,
-  });
+  MarkdownImageNode(super.children, {required this.destination, this.title});
 
   final String destination;
   final String? title;
 
   @override
-  List<Object?> get props => [
-    ...super.props,
-    destination,
-    title,
-  ];
+  List<Object?> get props => [...super.props, destination, title];
 }
 
 final class MarkdownStrikethroughNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownStrikethroughNode(
-    super.children,
-  );
+  MarkdownStrikethroughNode(super.children);
 }
