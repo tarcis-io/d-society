@@ -12,12 +12,12 @@ sealed class MarkdownBlockNode extends MarkdownNode {
 }
 
 @immutable
-sealed class MarkdownBlockParentNode extends MarkdownBlockNode {
+sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlockNode {
   MarkdownBlockParentNode(
-    Iterable<MarkdownBlockNode> children,
+    Iterable<T> children,
   ) : children = List.unmodifiable(children);
 
-  final List<MarkdownBlockNode> children;
+  final List<T> children;
 
   @override
   List<Object?> get props => [children];
@@ -29,12 +29,12 @@ sealed class MarkdownInlineNode extends MarkdownNode {
 }
 
 @immutable
-sealed class MarkdownInlineParentNode extends MarkdownInlineNode {
+sealed class MarkdownInlineParentNode<T extends MarkdownNode> extends MarkdownInlineNode {
   MarkdownInlineParentNode(
-    Iterable<MarkdownInlineNode> children,
+    Iterable<T> children,
   ) : children = List.unmodifiable(children);
 
-  final List<MarkdownInlineNode> children;
+  final List<T> children;
 
   @override
   List<Object?> get props => [children];
