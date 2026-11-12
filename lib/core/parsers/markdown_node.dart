@@ -23,13 +23,57 @@ sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlo
   List<Object?> get props => [children];
 }
 
+final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
+  MarkdownParagraphNode(
+    super.children,
+  );
+}
+
+final class MarkdownHeadingNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
+  MarkdownHeadingNode(
+    super.children, {
+    required this.level,
+  }) : assert(level >= 1 && level <= 6, 'level must be between 1 and 6');
+
+  final int level;
+
+  @override
+  List<Object?> get props => [...super.props, level];
+}
+
+final class MarkdownBlockQuoteNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
+  MarkdownBlockQuoteNode(
+    super.children,
+  );
+}
+
+final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
+  MarkdownListItemNode(
+    super.children,
+  );
+}
+
+final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNode> {
+  MarkdownListNode(
+    super.children, {
+    required this.isOrdered,
+    this.startNumber,
+  });
+
+  final bool isOrdered;
+  final int? startNumber;
+
+  @override
+  List<Object?> get props => [...super.props, isOrdered, startNumber];
+}
+
 @immutable
 sealed class MarkdownInlineNode extends MarkdownNode {
   const MarkdownInlineNode();
 }
 
 @immutable
-sealed class MarkdownInlineParentNode<T extends MarkdownNode> extends MarkdownInlineNode {
+sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends MarkdownInlineNode {
   MarkdownInlineParentNode(
     Iterable<T> children,
   ) : children = List.unmodifiable(children);
