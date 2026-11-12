@@ -6,8 +6,14 @@ sealed class MarkdownNode extends Equatable {
   const MarkdownNode();
 }
 
-final class MarkdownDocumentNode extends MarkdownNode {
-  MarkdownDocumentNode(
+@immutable
+sealed class MarkdownBlockNode extends MarkdownNode {
+  const MarkdownBlockNode();
+}
+
+@immutable
+sealed class MarkdownBlockParentNode extends MarkdownBlockNode {
+  MarkdownBlockParentNode(
     Iterable<MarkdownBlockNode> children,
   ) : children = List.unmodifiable(children);
 
@@ -18,35 +24,8 @@ final class MarkdownDocumentNode extends MarkdownNode {
 }
 
 @immutable
-sealed class MarkdownBlockNode extends MarkdownNode {
-  const MarkdownBlockNode();
-}
-
-final class MarkdownParagraphNode extends MarkdownBlockNode {
-  MarkdownParagraphNode(
-    Iterable<MarkdownInlineNode> children,
-  ) : children = List.unmodifiable(children);
-
-  final List<MarkdownInlineNode> children;
-
-  @override
-  List<Object?> get props => [children];
-}
-
-@immutable
 sealed class MarkdownInlineNode extends MarkdownNode {
   const MarkdownInlineNode();
-}
-
-final class MarkdownTextNode extends MarkdownInlineNode {
-  const MarkdownTextNode(
-    this.text,
-  );
-
-  final String text;
-
-  @override
-  List<Object?> get props => [text];
 }
 
 @immutable
