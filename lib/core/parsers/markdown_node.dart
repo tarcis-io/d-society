@@ -24,7 +24,11 @@ final class MarkdownCodeBlockNode extends MarkdownBlockNode {
   final String? language;
 
   @override
-  List<Object?> get props => [...super.props, text, language];
+  List<Object?> get props => [
+    ...super.props,
+    text,
+    language,
+  ];
 }
 
 final class MarkdownThematicBreakNode extends MarkdownBlockNode {
@@ -39,7 +43,10 @@ final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [
+    ...super.props,
+    text,
+  ];
 }
 
 @immutable
@@ -51,7 +58,10 @@ sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlo
   final List<T> children;
 
   @override
-  List<Object?> get props => [...super.props, children];
+  List<Object?> get props => [
+    ...super.props,
+    children,
+  ];
 }
 
 final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
@@ -69,7 +79,10 @@ final class MarkdownHeadingNode extends MarkdownBlockParentNode<MarkdownInlineNo
   final int level;
 
   @override
-  List<Object?> get props => [...super.props, level];
+  List<Object?> get props => [
+    ...super.props,
+    level,
+  ];
 }
 
 final class MarkdownBlockQuoteNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
@@ -95,7 +108,11 @@ final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNod
   final int? startNumber;
 
   @override
-  List<Object?> get props => [...super.props, isOrdered, startNumber];
+  List<Object?> get props => [
+    ...super.props,
+    isOrdered,
+    startNumber,
+  ];
 }
 
 @immutable
@@ -111,7 +128,10 @@ final class MarkdownTextNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [
+    ...super.props,
+    text,
+  ];
 }
 
 final class MarkdownCodeSpanNode extends MarkdownInlineNode {
@@ -122,7 +142,10 @@ final class MarkdownCodeSpanNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [
+    ...super.props,
+    text,
+  ];
 }
 
 final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
@@ -133,7 +156,10 @@ final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [
+    ...super.props,
+    text,
+  ];
 }
 
 final class MarkdownSoftLineBreakNode extends MarkdownInlineNode {
@@ -153,5 +179,8 @@ sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends Mark
   final List<T> children;
 
   @override
-  List<Object?> get props => [...super.props, children];
+  List<Object?> get props => [
+    ...super.props,
+    children,
+  ];
 }
