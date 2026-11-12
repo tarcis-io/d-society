@@ -64,6 +64,12 @@ sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlo
   ];
 }
 
+final class MarkdownDocumentNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
+  MarkdownDocumentNode(
+    super.children,
+  );
+}
+
 final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
   MarkdownParagraphNode(
     super.children,
@@ -93,8 +99,17 @@ final class MarkdownBlockQuoteNode extends MarkdownBlockParentNode<MarkdownBlock
 
 final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
   MarkdownListItemNode(
-    super.children,
-  );
+    super.children, {
+    this.isChecked,
+  });
+
+  final bool? isChecked;
+
+  @override
+  List<Object?> get props => [
+    ...super.props,
+    isChecked,
+  ];
 }
 
 final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNode> {
@@ -183,4 +198,58 @@ sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends Mark
     ...super.props,
     children,
   ];
+}
+
+final class MarkdownEmphasisNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
+  MarkdownEmphasisNode(
+    super.children,
+  );
+}
+
+final class MarkdownStrongNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
+  MarkdownStrongNode(
+    super.children,
+  );
+}
+
+final class MarkdownLinkNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
+  MarkdownLinkNode(
+    super.children, {
+    required this.destination,
+    this.title,
+  });
+
+  final String destination;
+  final String? title;
+
+  @override
+  List<Object?> get props => [
+    ...super.props,
+    destination,
+    title,
+  ];
+}
+
+final class MarkdownImageNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
+  MarkdownImageNode(
+    super.children, {
+    required this.destination,
+    this.title,
+  });
+
+  final String destination;
+  final String? title;
+
+  @override
+  List<Object?> get props => [
+    ...super.props,
+    destination,
+    title,
+  ];
+}
+
+final class MarkdownStrikethroughNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
+  MarkdownStrikethroughNode(
+    super.children,
+  );
 }
