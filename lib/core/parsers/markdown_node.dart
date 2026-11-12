@@ -103,6 +103,47 @@ sealed class MarkdownInlineNode extends MarkdownNode {
   const MarkdownInlineNode();
 }
 
+final class MarkdownTextNode extends MarkdownInlineNode {
+  const MarkdownTextNode(
+    this.text,
+  );
+
+  final String text;
+
+  @override
+  List<Object?> get props => [...super.props, text];
+}
+
+final class MarkdownCodeSpanNode extends MarkdownInlineNode {
+  const MarkdownCodeSpanNode(
+    this.text,
+  );
+
+  final String text;
+
+  @override
+  List<Object?> get props => [...super.props, text];
+}
+
+final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
+  const MarkdownHtmlInlineNode(
+    this.text,
+  );
+
+  final String text;
+
+  @override
+  List<Object?> get props => [...super.props, text];
+}
+
+final class MarkdownSoftLineBreakNode extends MarkdownInlineNode {
+  const MarkdownSoftLineBreakNode();
+}
+
+final class MarkdownHardLineBreakNode extends MarkdownInlineNode {
+  const MarkdownHardLineBreakNode();
+}
+
 @immutable
 sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends MarkdownInlineNode {
   MarkdownInlineParentNode(
