@@ -21,7 +21,7 @@ final class MarkdownCodeBlockNode extends MarkdownBlockNode {
   final String? language;
 
   @override
-  List<Object?> get props => [...super.props, text, language];
+  List<Object?> get props => [text, language];
 }
 
 final class MarkdownThematicBreakNode extends MarkdownBlockNode {
@@ -34,7 +34,7 @@ final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 enum MarkdownTableAlignment { left, center, right, none }
@@ -52,7 +52,7 @@ final class MarkdownTableNode extends MarkdownBlockNode {
   final List<MarkdownTableRowNode> bodyRows;
 
   @override
-  List<Object?> get props => [...super.props, columnAlignments, headerRow, bodyRows];
+  List<Object?> get props => [columnAlignments, headerRow, bodyRows];
 }
 
 final class MarkdownMathBlockNode extends MarkdownBlockNode {
@@ -61,7 +61,7 @@ final class MarkdownMathBlockNode extends MarkdownBlockNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 final class MarkdownFrontmatterNode extends MarkdownBlockNode {
@@ -70,7 +70,7 @@ final class MarkdownFrontmatterNode extends MarkdownBlockNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 @immutable
@@ -140,7 +140,7 @@ final class MarkdownFootnoteDefinitionNode extends MarkdownBlockParentNode<Markd
   List<Object?> get props => [...super.props, identifier];
 }
 
-enum MarkdownAdmonitionType { note, warning, tip }
+enum MarkdownAdmonitionType { note, tip, important, warning, caution, info, success, danger, unknown }
 
 final class MarkdownAdmonitionNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
   MarkdownAdmonitionNode(super.children, {required this.type, this.title});
@@ -163,7 +163,7 @@ final class MarkdownTextNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 final class MarkdownCodeSpanNode extends MarkdownInlineNode {
@@ -172,7 +172,7 @@ final class MarkdownCodeSpanNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
@@ -181,7 +181,7 @@ final class MarkdownHtmlInlineNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 final class MarkdownSoftLineBreakNode extends MarkdownInlineNode {
@@ -198,7 +198,7 @@ final class MarkdownFootnoteReferenceNode extends MarkdownInlineNode {
   final String identifier;
 
   @override
-  List<Object?> get props => [...super.props, identifier];
+  List<Object?> get props => [identifier];
 }
 
 final class MarkdownMathInlineNode extends MarkdownInlineNode {
@@ -207,7 +207,7 @@ final class MarkdownMathInlineNode extends MarkdownInlineNode {
   final String text;
 
   @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [text];
 }
 
 @immutable
