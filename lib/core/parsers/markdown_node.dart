@@ -87,6 +87,30 @@ final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNod
   List<Object?> get props => [...super.props, isOrdered, startNumber];
 }
 
+enum MarkdownTableAlignment { left, center, right, none }
+
+final class MarkdownTableCellNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
+  MarkdownTableCellNode(super.children, {this.alignment = MarkdownTableAlignment.none});
+
+  final MarkdownTableAlignment alignment;
+
+  @override
+  List<Object?> get props => [...super.props, alignment];
+}
+
+final class MarkdownTableRowNode extends MarkdownBlockParentNode<MarkdownTableCellNode> {
+  MarkdownTableRowNode(super.children, {required this.isHeader});
+
+  final bool isHeader;
+
+  @override
+  List<Object?> get props => [...super.props, isHeader];
+}
+
+final class MarkdownTableNode extends MarkdownBlockParentNode<MarkdownTableRowNode> {
+  MarkdownTableNode(super.children);
+}
+
 @immutable
 sealed class MarkdownInlineNode extends MarkdownNode {
   const MarkdownInlineNode();
