@@ -37,6 +37,24 @@ final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
   List<Object?> get props => [...super.props, text];
 }
 
+enum MarkdownTableAlignment { left, center, right, none }
+
+final class MarkdownTableNode extends MarkdownBlockNode {
+  MarkdownTableNode({
+    required Iterable<MarkdownTableAlignment> columnAlignments,
+    required this.headerRow,
+    required Iterable<MarkdownTableRowNode> bodyRows,
+  }) : columnAlignments = List.unmodifiable(columnAlignments),
+       bodyRows = List.unmodifiable(bodyRows);
+
+  final List<MarkdownTableAlignment> columnAlignments;
+  final MarkdownTableRowNode headerRow;
+  final List<MarkdownTableRowNode> bodyRows;
+
+  @override
+  List<Object?> get props => [...super.props, columnAlignments, headerRow, bodyRows];
+}
+
 final class MarkdownMathBlockNode extends MarkdownBlockNode {
   const MarkdownMathBlockNode(this.text);
 
@@ -96,28 +114,12 @@ final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNo
   List<Object?> get props => [...super.props, isChecked];
 }
 
-enum MarkdownTableAlignment { left, center, right, none }
-
-final class MarkdownTableNode extends MarkdownBlockParentNode<MarkdownTableRowNode> {
-  MarkdownTableNode(super.children);
-}
-
 final class MarkdownTableRowNode extends MarkdownBlockParentNode<MarkdownTableCellNode> {
-  MarkdownTableRowNode(super.children, {required this.isHeader});
-
-  final bool isHeader;
-
-  @override
-  List<Object?> get props => [...super.props, isHeader];
+  MarkdownTableRowNode(super.children);
 }
 
 final class MarkdownTableCellNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownTableCellNode(super.children, {this.alignment = MarkdownTableAlignment.none});
-
-  final MarkdownTableAlignment alignment;
-
-  @override
-  List<Object?> get props => [...super.props, alignment];
+  MarkdownTableCellNode(super.children);
 }
 
 @immutable
