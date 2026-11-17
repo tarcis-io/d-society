@@ -40,12 +40,7 @@ final class MarkdownHtmlBlockNode extends MarkdownBlockNode {
 enum MarkdownTableAlignment { left, center, right, none }
 
 final class MarkdownTableNode extends MarkdownBlockNode {
-  MarkdownTableNode({
-    required Iterable<MarkdownTableAlignment> columnAlignments,
-    required this.headerRow,
-    required Iterable<MarkdownTableRowNode> bodyRows,
-  }) : columnAlignments = List.unmodifiable(columnAlignments),
-       bodyRows = List.unmodifiable(bodyRows);
+  const MarkdownTableNode(this.columnAlignments, this.headerRow, this.bodyRows);
 
   final List<MarkdownTableAlignment> columnAlignments;
   final MarkdownTableRowNode headerRow;
@@ -75,7 +70,7 @@ final class MarkdownFrontmatterNode extends MarkdownBlockNode {
 
 @immutable
 sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlockNode {
-  MarkdownBlockParentNode(Iterable<T> children) : children = List.unmodifiable(children);
+  const MarkdownBlockParentNode(this.children);
 
   final List<T> children;
 
@@ -84,15 +79,15 @@ sealed class MarkdownBlockParentNode<T extends MarkdownNode> extends MarkdownBlo
 }
 
 final class MarkdownDocumentNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownDocumentNode(super.children);
+  const MarkdownDocumentNode(super.children);
 }
 
 final class MarkdownParagraphNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownParagraphNode(super.children);
+  const MarkdownParagraphNode(super.children);
 }
 
 final class MarkdownHeadingNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownHeadingNode(super.children, {required this.level});
+  const MarkdownHeadingNode(super.children, {required this.level});
 
   final int level;
 
@@ -101,11 +96,11 @@ final class MarkdownHeadingNode extends MarkdownBlockParentNode<MarkdownInlineNo
 }
 
 final class MarkdownBlockQuoteNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownBlockQuoteNode(super.children);
+  const MarkdownBlockQuoteNode(super.children);
 }
 
 final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNode> {
-  MarkdownListNode(super.children, {required this.isOrdered, this.startNumber});
+  const MarkdownListNode(super.children, {required this.isOrdered, this.startNumber});
 
   final bool isOrdered;
   final int? startNumber;
@@ -115,7 +110,7 @@ final class MarkdownListNode extends MarkdownBlockParentNode<MarkdownListItemNod
 }
 
 final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownListItemNode(super.children, {this.isChecked});
+  const MarkdownListItemNode(super.children, {this.isChecked});
 
   final bool? isChecked;
 
@@ -124,15 +119,15 @@ final class MarkdownListItemNode extends MarkdownBlockParentNode<MarkdownBlockNo
 }
 
 final class MarkdownTableRowNode extends MarkdownBlockParentNode<MarkdownTableCellNode> {
-  MarkdownTableRowNode(super.children);
+  const MarkdownTableRowNode(super.children);
 }
 
 final class MarkdownTableCellNode extends MarkdownBlockParentNode<MarkdownInlineNode> {
-  MarkdownTableCellNode(super.children);
+  const MarkdownTableCellNode(super.children);
 }
 
 final class MarkdownFootnoteDefinitionNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownFootnoteDefinitionNode(super.children, {required this.identifier});
+  const MarkdownFootnoteDefinitionNode(super.children, {required this.identifier});
 
   final String identifier;
 
@@ -143,7 +138,7 @@ final class MarkdownFootnoteDefinitionNode extends MarkdownBlockParentNode<Markd
 enum MarkdownAdmonitionType { note, tip, important, warning, caution, info, success, danger, unknown }
 
 final class MarkdownAdmonitionNode extends MarkdownBlockParentNode<MarkdownBlockNode> {
-  MarkdownAdmonitionNode(super.children, {required this.type, this.title});
+  const MarkdownAdmonitionNode(super.children, {required this.type, this.title});
 
   final MarkdownAdmonitionType type;
   final String? title;
@@ -212,7 +207,7 @@ final class MarkdownMathInlineNode extends MarkdownInlineNode {
 
 @immutable
 sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends MarkdownInlineNode {
-  MarkdownInlineParentNode(Iterable<T> children) : children = List.unmodifiable(children);
+  const MarkdownInlineParentNode(this.children);
 
   final List<T> children;
 
@@ -221,15 +216,15 @@ sealed class MarkdownInlineParentNode<T extends MarkdownInlineNode> extends Mark
 }
 
 final class MarkdownEmphasisNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownEmphasisNode(super.children);
+  const MarkdownEmphasisNode(super.children);
 }
 
 final class MarkdownStrongNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownStrongNode(super.children);
+  const MarkdownStrongNode(super.children);
 }
 
 final class MarkdownLinkNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownLinkNode(super.children, {required this.destination, this.title});
+  const MarkdownLinkNode(super.children, {required this.destination, this.title});
 
   final String destination;
   final String? title;
@@ -239,7 +234,7 @@ final class MarkdownLinkNode extends MarkdownInlineParentNode<MarkdownInlineNode
 }
 
 final class MarkdownImageNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownImageNode(super.children, {required this.destination, this.title});
+  const MarkdownImageNode(super.children, {required this.destination, this.title});
 
   final String destination;
   final String? title;
@@ -249,17 +244,17 @@ final class MarkdownImageNode extends MarkdownInlineParentNode<MarkdownInlineNod
 }
 
 final class MarkdownStrikethroughNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownStrikethroughNode(super.children);
+  const MarkdownStrikethroughNode(super.children);
 }
 
 final class MarkdownHighlightNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownHighlightNode(super.children);
+  const MarkdownHighlightNode(super.children);
 }
 
 final class MarkdownSubscriptNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownSubscriptNode(super.children);
+  const MarkdownSubscriptNode(super.children);
 }
 
 final class MarkdownSuperscriptNode extends MarkdownInlineParentNode<MarkdownInlineNode> {
-  MarkdownSuperscriptNode(super.children);
+  const MarkdownSuperscriptNode(super.children);
 }
